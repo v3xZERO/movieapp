@@ -2,22 +2,31 @@ import React, { useState } from "react";
 import { Box, Button, FormHelperText, Typography } from "@mui/material";
 
 import './styles.css';
+import { useDispatch } from "react-redux";
+import { setMovieListFromText } from "../../../store/movieSlice";
 
 const Upload = () => {
-    const [file, setFile] = useState(null);
     const [error, setError] = useState('');
+    const dispatch = useDispatch();
 
-  const handleFileChange = (e) => {
-    const selected = e.target.files[0];
-    if (selected && selected.type === 'text/plain') {
-      console.log(selected)
-      setFile(selected);
+    const handleFileChange = async (e) => {
       setError('');
-    } else {
-      setFile(null);
-      setError('Please select a valid .txt file');
-    }
-  };
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.type !== 'text/plain') {
+        setError('Please upload a valid .txt file');
+        return;
+      }
+
+      try {
+        const text = await file.text();
+        dispatch(setMovieListFromText(text));
+      } catch (err) {
+        console.error(err);
+        setError('Failed to read the file');
+      }
+    };
 
   return (
     <Box class="upload-wrapper">
@@ -36,7 +45,6 @@ const Upload = () => {
         </Button>
       </label>
 
-      {file && <Typography mt={2}>Selected: {file.name}</Typography>}
       {error && <FormHelperText error>{error}</FormHelperText>}
     </Box>
   );
