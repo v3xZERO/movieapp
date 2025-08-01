@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,  } from "react-redux";
 import { Box, Button, FormHelperText, Typography } from "@mui/material";
 
 import { setTitlesListFromText } from "../../../../store/titlesSlice";
-import { selectTitlesList } from "../../../../store/selectors";
-
-import './styles.css';
-import TitlesList from "../TitlesList";
 
 const Upload = () => {
     const [error, setError] = useState('');
     const dispatch = useDispatch();
-    const list = useSelector(selectTitlesList);
-    const hasUploadedList = list.length;
 
     const handleFileChange = async (e) => {
       setError('');
@@ -33,8 +27,8 @@ const Upload = () => {
       }
     };
 
-    const uploadInput = () => (
-      <>
+  return (
+    <Box>
         <Typography variant="h6">Upload Titles List (.txt)</Typography>
         <input
           accept=".txt"
@@ -50,13 +44,7 @@ const Upload = () => {
         </label>
 
         {error && <FormHelperText error>{error}</FormHelperText>}
-      </>
-    )
-
-  return (
-    <Box class="upload-wrapper">
-      {hasUploadedList ? <TitlesList /> : uploadInput()}
-    </Box>
+      </Box>
   );
 }
 

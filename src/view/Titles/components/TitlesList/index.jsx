@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTitlesList } from "../../../../store/selectors";
 import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { toggleTitleChecked } from "../../../../store/titlesSlice";
 
 const TitlesList = () => {
 	const titles = useSelector(selectTitlesList); // state.titles.list
-	const [checked, setChecked] = useState([]);
+
+    const dispatch = useDispatch();
 
 	const handleToggle = (index) => () => {
-		const currentIndex = checked.indexOf(index);
-		const newChecked = [...checked];
-
-		if (currentIndex === -1) {
-			newChecked.push(index);
-		} else {
-			newChecked.splice(currentIndex, 1);
-		}
-
-		setChecked(newChecked);
+        dispatch(toggleTitleChecked(index))
 	};
 
 	if (!titles.length) {
@@ -42,12 +35,12 @@ const TitlesList = () => {
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
-								checked={checked.indexOf(index) !== -1}
+								checked={title.checked}
 								tabIndex={-1}
 								disableRipple
 							/>
 						</ListItemIcon>
-						<ListItemText primary={title} />
+						<ListItemText primary={title.text} />
 					</ListItem>
 				))}
 			</List>
