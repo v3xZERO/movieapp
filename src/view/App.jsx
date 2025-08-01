@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectHasMoviesList } from '../store/selectors';
-import Titles from './Titles';
-import Movies from './Movies';
+import { selectHasMoviesList } from "../store/selectors";
+import Titles from "./Titles";
+import Movies from "./Movies";
 
-import './styles.css';
+import "./styles.css";
 
 const App = () => {
 	const hasMoviesList = useSelector(selectHasMoviesList);

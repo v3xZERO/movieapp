@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const titlesSlice = createSlice({
 	name: 'titles',
@@ -13,7 +13,7 @@ const titlesSlice = createSlice({
 				.split('\n')
 				.map((line) => line.trim())
 				.filter((line) => line.length > 0)
-				.map((t) => ({text: t, checked: true}));
+				.map((t) => ({ text: t, checked: true }));
 
 			state.list = lines;
 		},
@@ -22,7 +22,7 @@ const titlesSlice = createSlice({
 			if (state.list[index]) {
 				state.list[index].checked = !state.list[index].checked;
 			}
-		}
+		},
 	},
 });
 

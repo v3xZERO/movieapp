@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMovieCredits, fetchMovieDetails, fetchMovieVideos, searchMovie } from "../api";
+import {
+	fetchMovieCredits,
+	fetchMovieDetails,
+	fetchMovieVideos,
+	searchMovie,
+} from "../api";
 import { selectMovieIds, selectSelectedTitlesList } from "./selectors";
 
 const moviesSlice = createSlice({
@@ -13,18 +18,18 @@ const moviesSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-						.addCase(fetchCheckedTitles.pending, (state) => {
-								state.isLoading = true;
-								state.error = null;
-						})
-						.addCase(fetchCheckedTitles.fulfilled, (state, action) => {
-								state.error = null;
-								state.ids = action.payload;
-						})
-						.addCase(fetchCheckedTitles.rejected, (state, action) => {
-								state.isLoading = false;
-								state.error = action.payload || 'Failed to fetch movies';
-						})
+			.addCase(fetchCheckedTitles.pending, (state) => {
+				state.isLoading = true;
+				state.error = null;
+			})
+			.addCase(fetchCheckedTitles.fulfilled, (state, action) => {
+				state.error = null;
+				state.ids = action.payload;
+			})
+			.addCase(fetchCheckedTitles.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload || 'Failed to fetch movies';
+			})
 			.addCase(fetchFullMovies.pending, (state) => {
 				state.isLoading = true;
 				state.error = null;
@@ -47,7 +52,7 @@ export const fetchCheckedTitles = createAsyncThunk(
 		try {
 			const state = thunkAPI.getState();
 			const titles = selectSelectedTitlesList(state);
-	
+
 			const resultsArray = await Promise.all(
 				titles.map(async (title) => {
 					const results = await searchMovie(title);
@@ -64,7 +69,7 @@ export const fetchCheckedTitles = createAsyncThunk(
 );
 
 export const fetchFullMovies = createAsyncThunk(
-	'movies/fetchFullMovies',
+	"movies/fetchFullMovies",
 	async (_, thunkAPI) => {
 		try {
 			const state = thunkAPI.getState();
@@ -95,7 +100,7 @@ export const fetchFullMovies = createAsyncThunk(
 );
 
 export const fetchAllMoviesData = createAsyncThunk(
-	'movies/fetchAllMoviesData',
+	"movies/fetchAllMoviesData",
 	async (_, thunkAPI) => {
 		// fetch the ids
 		const checkedTitlesResult = await thunkAPI.dispatch(fetchCheckedTitles());
@@ -105,7 +110,7 @@ export const fetchAllMoviesData = createAsyncThunk(
 			await thunkAPI.dispatch(fetchFullMovies());
 			return;
 		} else {
-			return thunkAPI.rejectWithValue('Failed to fetch checked titles');
+			return thunkAPI.rejectWithValue("Failed to fetch checked titles");
 		}
 	}
 );

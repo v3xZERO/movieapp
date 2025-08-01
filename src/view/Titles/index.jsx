@@ -18,6 +18,6 @@ const Titles = () => {
 			<SearchButton />
 		</Box>
 	)
-}
+};
 
 export default Titles;
