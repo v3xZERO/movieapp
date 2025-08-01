@@ -6,6 +6,7 @@ const moviesSlice = createSlice({
 	name: 'movies',
 	initialState: {
 		ids: [],
+		list: [],
 		isLoading: false,
 		error: null,
 	},
@@ -31,7 +32,7 @@ const moviesSlice = createSlice({
 			.addCase(fetchFullMovies.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.error = null;
-				state.movies = action.payload;
+				state.list = action.payload;
 			})
 			.addCase(fetchFullMovies.rejected, (state, action) => {
 				state.isLoading = false;

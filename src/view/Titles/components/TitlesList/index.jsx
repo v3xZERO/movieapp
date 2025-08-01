@@ -1,10 +1,10 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTitlesList } from "../../../../store/selectors";
 import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { toggleTitleChecked } from "../../../../store/titlesSlice";
 
 import './styles.css';
+
 
 const TitlesList = () => {
 	const titles = useSelector(selectTitlesList); // state.titles.list
@@ -24,10 +24,6 @@ const TitlesList = () => {
 	}
 
 	return (
-		<>
-		<Box class="title-wrapper">
-			<Typography variant="h5" className="title-wrapper">Imported Movie Titles</Typography>
-		</Box>
 		<Box class="content-wrapper">
 			<List class="titles-list">
 				{titles.map((title, index) => (
@@ -50,7 +46,6 @@ const TitlesList = () => {
 				))}
 			</List>
 		</Box>
-		</>
 	);
 };
 
