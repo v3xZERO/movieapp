@@ -10,10 +10,10 @@ import './styles.css';
 const TitlesList = () => {
 	const titles = useSelector(selectTitlesList); // state.titles.list
 
-		const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const handleToggle = (index) => () => {
-				dispatch(toggleTitleChecked(index))
+		dispatch(toggleTitleChecked(index))
 	};
 
 	if (!titles.length) return null;
