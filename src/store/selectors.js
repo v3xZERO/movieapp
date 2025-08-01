@@ -6,3 +6,6 @@ export const selectSelectedTitlesList = (state) => {
 
     return selectedList;
 }
+
+export const selectMovieIds = (state) => state.movies.ids;
+export const selectHasMoviesList = (state) => state.movies.ids.length;

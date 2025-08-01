@@ -1,0 +1,96 @@
+import axios from 'axios';
+
+const API_KEY = '0fa6e86d60cd3139cc696fe9bd163838';
+const BASE_URL = 'https://api.themoviedb.org/3';
+
+export const searchMovie = async (query) => {
+	try {
+		const response = await axios.get(`${BASE_URL}/search/movie`, {
+			params: {
+				api_key: API_KEY,
+				query,
+			},
+		});
+		return response.data.results;
+	} catch (error) {
+		console.error('TMDB API Error:', error);
+		throw error;
+	}
+};
+
+export async function fetchMovieDetails(movieId) {
+	const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`;
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch movie details for ID ${movieId}`);
+	}
+	const data = await response.json();
+
+	const {
+		id,
+		title,
+		overview,
+		backdrop_path,
+		poster_path,
+		genres,
+		release_date,
+		runtime,
+		vote_average,
+	} = data;
+
+	return {
+		id,
+		title,
+		overview,
+		backdrop_path,
+		poster_path,
+		genres,
+		release_date,
+		runtime,
+		rating: vote_average,
+	};
+}
+
+export async function fetchMovieCredits(movieId) {
+	const url = `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`;
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch movie credits for ID ${movieId}`);
+	}
+	const data = await response.json();
+
+	// get first 3 actors
+	const actors = data.cast
+		.filter((person) => person.known_for_department === 'Acting')
+		.slice(0, 3)
+		.map((actor) => actor.name);
+
+	// get all directors even if more than one
+	const directors = data.crew
+		.filter((person) => person.job === 'Director')
+		.map((director) => director.name);
+
+	return {
+		actors,
+		directors,
+	};
+}
+
+export async function fetchMovieVideos(movieId) {
+	const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch movie videos for ID ${movieId}`);
+	}
+	const data = await response.json();
+
+	// get first trailer or null
+	const firstVideo = data.results && data.results.length > 0 ? data.results[0] : null;
+
+	return {
+		trailer_key: firstVideo ? firstVideo.key : null,
+	};
+}
