@@ -5,7 +5,7 @@ import { selectHasMoviesList } from '../store/selectors';
 import Titles from './Titles';
 import Movies from './Movies';
 
-import './App.css';
+import './styles.css';
 
 const App = () => {
   const hasMoviesList = useSelector(selectHasMoviesList);

@@ -26,7 +26,7 @@ const TitlesList = () => {
 	return (
 		<>
 		<Box class="title-wrapper">
-			<Typography variant="h5" className="title-wrapper">Imported Movies</Typography>
+			<Typography variant="h5" className="title-wrapper">Imported Movie Titles</Typography>
 		</Box>
 		<Box class="content-wrapper">
 			<List class="titles-list">
