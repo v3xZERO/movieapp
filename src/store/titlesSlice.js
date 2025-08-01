@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const movieSlice = createSlice({
-  name: 'movies',
+const titlesSlice = createSlice({
+  name: 'titles',
   initialState: {
     list: [],
   },
   reducers: {
-    setMovieListFromText: (state, action) => {
+    setTitlesListFromText: (state, action) => {
       const text = action.payload;
-      console.log('hello')
 
       const lines = text
         .split('\n')
@@ -20,5 +19,5 @@ const movieSlice = createSlice({
   },
 });
 
-export const { setMovieListFromText } = movieSlice.actions;
-export default movieSlice.reducer;
+export const { setTitlesListFromText } = titlesSlice.actions;
+export default titlesSlice.reducer;
