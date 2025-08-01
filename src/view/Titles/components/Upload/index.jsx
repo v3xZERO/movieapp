@@ -6,6 +6,7 @@ import { setTitlesListFromText } from "../../../../store/titlesSlice";
 import { selectTitlesList } from "../../../../store/selectors";
 
 import './styles.css';
+import TitlesList from "../TitlesList";
 
 const Upload = () => {
     const [error, setError] = useState('');
@@ -54,7 +55,7 @@ const Upload = () => {
 
   return (
     <Box class="upload-wrapper">
-      {!hasUploadedList && uploadInput()}
+      {hasUploadedList ? <TitlesList /> : uploadInput()}
     </Box>
   );
 }
