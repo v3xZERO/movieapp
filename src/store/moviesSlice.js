@@ -13,18 +13,18 @@ const moviesSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-            .addCase(fetchCheckedTitles.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-            })
-            .addCase(fetchCheckedTitles.fulfilled, (state, action) => {
-                state.error = null;
-                state.ids = action.payload;
-            })
-            .addCase(fetchCheckedTitles.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload || 'Failed to fetch movies';
-            })
+						.addCase(fetchCheckedTitles.pending, (state) => {
+								state.isLoading = true;
+								state.error = null;
+						})
+						.addCase(fetchCheckedTitles.fulfilled, (state, action) => {
+								state.error = null;
+								state.ids = action.payload;
+						})
+						.addCase(fetchCheckedTitles.rejected, (state, action) => {
+								state.isLoading = false;
+								state.error = action.payload || 'Failed to fetch movies';
+						})
 			.addCase(fetchFullMovies.pending, (state) => {
 				state.isLoading = true;
 				state.error = null;

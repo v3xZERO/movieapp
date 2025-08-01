@@ -1,27 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
+
+import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+
 import { selectTitlesList } from "../../../../store/selectors";
-import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { toggleTitleChecked } from "../../../../store/titlesSlice";
 
 import './styles.css';
 
-
 const TitlesList = () => {
 	const titles = useSelector(selectTitlesList); // state.titles.list
 
-    const dispatch = useDispatch();
+		const dispatch = useDispatch();
 
 	const handleToggle = (index) => () => {
-        dispatch(toggleTitleChecked(index))
+				dispatch(toggleTitleChecked(index))
 	};
 
-	if (!titles.length) {
-		return (
-			<Typography variant="body1">
-				No titles loaded yet.
-			</Typography>
-		);
-	}
+	if (!titles.length) return null;
 
 	return (
 		<Box class="content-wrapper">

@@ -7,15 +7,15 @@ import Movies from './Movies';
 import './styles.css';
 
 const App = () => {
-  const hasMoviesList = useSelector(selectHasMoviesList);
+	const hasMoviesList = useSelector(selectHasMoviesList);
 
-  return (
-    <div className="app-wrapper">
-      <div className="app">
-        {hasMoviesList ? <Movies /> : <Titles />}
-      </div>
-    </div>
-  );
+	return (
+		<div className="app-wrapper">
+			<div className="app">
+				{hasMoviesList ? <Movies /> : <Titles />}
+			</div>
+		</div>
+	);
 }
 
 export default App;
