@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, FormHelperText, Typography } from "@mui/material";
 
+import { setTitlesListFromText } from "../../../../store/titlesSlice";
+import { selectTitlesList } from "../../../../store/selectors";
+
 import './styles.css';
-import { useDispatch, useSelector } from "react-redux";
-import { setTitlesListFromText } from "../../../store/titlesSlice";
-import { selectTitlesList } from "../../../store/selectors";
 
 const Upload = () => {
     const [error, setError] = useState('');
@@ -33,7 +34,7 @@ const Upload = () => {
 
     const uploadInput = () => (
       <>
-        <Typography variant="h6">Upload titles List (.txt)</Typography>
+        <Typography variant="h6">Upload Titles List (.txt)</Typography>
         <input
           accept=".txt"
           style={{ display: 'none' }}

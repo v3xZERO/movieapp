@@ -1,11 +1,11 @@
 import './App.css';
-import Upload from './components/Upload';
+import Titles from './Titles';
 
 const App = () => {
   return (
     <div className="app-wrapper">
       <div className="app">
-        <Upload />
+        <Titles />
       </div>
     </div>
   );
