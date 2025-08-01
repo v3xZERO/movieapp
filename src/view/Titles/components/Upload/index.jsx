@@ -4,6 +4,8 @@ import { Box, Button, FormHelperText, Typography } from "@mui/material";
 
 import { setTitlesListFromText } from "../../../../store/titlesSlice";
 
+import './styles.css'
+
 const Upload = () => {
     const [error, setError] = useState('');
     const dispatch = useDispatch();
@@ -28,7 +30,7 @@ const Upload = () => {
     };
 
   return (
-    <Box>
+    <Box class="upload-wrapper" >
         <Typography variant="h6">Upload Titles List (.txt)</Typography>
         <input
           accept=".txt"

@@ -4,6 +4,8 @@ import { selectTitlesList } from "../../../../store/selectors";
 import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { toggleTitleChecked } from "../../../../store/titlesSlice";
 
+import './styles.css';
+
 const TitlesList = () => {
 	const titles = useSelector(selectTitlesList); // state.titles.list
 
@@ -15,16 +17,19 @@ const TitlesList = () => {
 
 	if (!titles.length) {
 		return (
-			<Typography variant="body1" mt={3}>
+			<Typography variant="body1">
 				No titles loaded yet.
 			</Typography>
 		);
 	}
 
 	return (
-		<Box mt={3}>
-			<Typography variant="h5">Your Movie Titles</Typography>
-			<List dense>
+		<>
+		<Box class="title-wrapper">
+			<Typography variant="h5" className="title-wrapper">Imported Movies</Typography>
+		</Box>
+		<Box class="content-wrapper">
+			<List class="titles-list">
 				{titles.map((title, index) => (
 					<ListItem
 						key={index}
@@ -45,6 +50,7 @@ const TitlesList = () => {
 				))}
 			</List>
 		</Box>
+		</>
 	);
 };
 

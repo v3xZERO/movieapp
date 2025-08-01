@@ -7,13 +7,11 @@ import TitlesList from "./components/TitlesList";
 import Upload from "./components/Upload";
 import SearchButton from "./components/SearchButton";
 
-import './styles.css';
-
 const Titles = () => {
     const hasTitlesList = useSelector(selectHasTitlesList);
     
     return (
-        <Box class="upload-wrapper">
+        <Box class="page-wrapper">
             {hasTitlesList ? <TitlesList /> : <Upload />}
             <SearchButton />
         </Box>

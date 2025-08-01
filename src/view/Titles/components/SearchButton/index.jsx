@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux";
 import { selectHasTitlesList } from "../../../../store/selectors";
 import { fetchAllMoviesData } from "../../../../store/moviesSlice";
@@ -12,7 +12,11 @@ const SearchButton = () => {
         dispatch(fetchAllMoviesData())
     }
     
-    return (<Button variant="contained" disabled={!hasTitlesList} onClick={handleSearch}>Search</Button>)
+    return (
+        <Box class="button-wrapper">
+            <Button variant="contained" disabled={!hasTitlesList} onClick={handleSearch}>Search</Button>
+        </Box>
+    )
 }
 
 export default SearchButton;
