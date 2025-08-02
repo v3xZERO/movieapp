@@ -18,7 +18,7 @@ export const searchMovie = async (query) => {
 	}
 };
 
-export async function fetchMovieDetails(movieId) {
+export const fetchMovieDetails = async (movieId) => {
 	const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`;
 
 	const response = await fetch(url);
@@ -52,7 +52,7 @@ export async function fetchMovieDetails(movieId) {
 	};
 }
 
-export async function fetchMovieCredits(movieId) {
+export const fetchMovieCredits = async (movieId) => {
 	const url = `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`;
 
 	const response = await fetch(url);
@@ -78,7 +78,7 @@ export async function fetchMovieCredits(movieId) {
 	};
 }
 
-export async function fetchMovieVideos(movieId) {
+export const fetchMovieVideos = async (movieId) => {
 	const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
 
 	const response = await fetch(url);
@@ -93,4 +93,21 @@ export async function fetchMovieVideos(movieId) {
 	return {
 		trailer_key: firstVideo ? firstVideo.key : null,
 	};
+}
+
+export const fetchLanguages = async () => {
+	const url = `${BASE_URL}/configuration/languages?api_key=${API_KEY}`
+
+	const response = await fetch(url);
+
+	if (!response.ok) {
+		throw new Error('Failed to fetch languages');
+	}
+
+	const data = await response.json();
+	
+	const languages = data.map((l) => ({ iso: l.iso_639_1, name: `${l.english_name}${l.name.length ? ` (${l.name})` : ''}`}))
+	const sortedLanguages = [...languages].sort((a, b) => (a.iso.localeCompare(b.iso)));
+
+	return sortedLanguages;
 }

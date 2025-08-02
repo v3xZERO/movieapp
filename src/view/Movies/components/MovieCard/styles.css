@@ -1,0 +1,40 @@
+
+.movie-card {
+  display: flex;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.movie-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-poster {
+  width: unset !important;
+  object-fit: contain !important;
+}
+
+.movie-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.movie-details {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.trailer-link {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+  color: black;
+}
+
+.trailer-link:hover {
+	color: #ff0000;
+}

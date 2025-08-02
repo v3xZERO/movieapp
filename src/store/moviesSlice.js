@@ -15,7 +15,14 @@ const moviesSlice = createSlice({
 		isLoading: false,
 		error: null,
 	},
-	reducers: {},
+	reducers: {
+		removeMovie: (state, action) => {
+			const id = action.payload;
+			
+			state.ids = state.ids.filter(i => i !== id);
+			state.list = state.list.filter((m) => m.id !== id).map((f, id) => ({...f, order: id}))
+		}
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchCheckedTitles.pending, (state) => {
@@ -116,4 +123,5 @@ export const fetchAllMoviesData = createAsyncThunk(
 	}
 );
 
+export const { removeMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -3,41 +3,5 @@
   flex-direction: column;
   gap: 4px;
   overflow-y: auto;
-}
-
-.movie-card {
-  display: flex;
-  height: 200px;
-  flex-shrink: 0;
-}
-
-.movie-poster {
-  width: unset !important;
-  object-fit: contain !important;
-}
-
-.movie-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.trailer-link {
-  color: black;
-}
-
-.movie-details {
-	display: flex;
-	align-items: center;
-	gap: 4px;
-}
-
-.trailer-link {
-	color: inherit;
-	text-decoration: none;
-	display: flex;
-	align-items: center;
-}
-
-.trailer-link:hover {
-	color: #ff0000;
+  padding-right: 8px;
 }
