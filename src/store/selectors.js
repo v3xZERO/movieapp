@@ -9,4 +9,6 @@ export const selectSelectedTitlesList = (state) => {
 
 export const selectMovieIds = (state) => state.movies.ids;
 export const selectMoviesList = (state) => state.movies.list;
+
+export const selectAreMoviesLoading = (state) => state.movies.isLoading;
 export const selectHasMoviesList = (state) => state.movies.ids.length;

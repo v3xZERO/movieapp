@@ -76,7 +76,7 @@ export const fetchFullMovies = createAsyncThunk(
 			const ids = selectMovieIds(state);
 
 			const movies = await Promise.all(
-				ids.map(async (id) => {
+				ids.map(async (id, index) => {
 					const [details, credits, videos] = await Promise.all([
 						fetchMovieDetails(id),
 						fetchMovieCredits(id),
@@ -88,6 +88,7 @@ export const fetchFullMovies = createAsyncThunk(
 						actors: credits.actors,
 						directors: credits.directors,
 						trailer_key: videos.trailer_key,
+						order: index,
 					};
 				})
 			);
