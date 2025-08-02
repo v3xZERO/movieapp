@@ -12,4 +12,5 @@ export const selectMoviesList = (state) => state.movies.list;
 export const selectAreMoviesLoading = (state) => state.movies.isLoading;
 export const selectHasMoviesList = (state) => state.movies.ids.length;
 
-export const selectLanguages = (state)=> state.meta.languages;
+export const selectLanguages = (state) => state.meta.languages;
+export const selectSelectedLanguage = (state) => state.meta.selectedLanguage;

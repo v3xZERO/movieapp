@@ -7,6 +7,7 @@ import TitlesList from "./components/TitlesList";
 import Upload from "./components/Upload";
 import SearchButton from "./components/SearchButton";
 import PageTitle from "../components/PageTitle";
+import LanguageSelect from "./components/LanguageSelect";
 
 const Titles = () => {
 	const hasTitlesList = useSelector(selectHasTitlesList);
@@ -15,7 +16,7 @@ const Titles = () => {
 		<Box class="page-wrapper">
 			{hasTitlesList ? <PageTitle title="Imported Movie Titles" /> : null}
 			{hasTitlesList ? <TitlesList /> : <Upload />}
-			<SearchButton />
+			<SearchButton /> <LanguageSelect />
 		</Box>
 	)
 };

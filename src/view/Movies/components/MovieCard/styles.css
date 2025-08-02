@@ -12,7 +12,7 @@
 }
 
 .movie-poster {
-  width: unset !important;
+  width: 133px !important;
   object-fit: contain !important;
 }
 
@@ -26,6 +26,11 @@
 	display: flex;
 	align-items: center;
 	gap: 4px;
+}
+
+.movie-overview {
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .trailer-link {

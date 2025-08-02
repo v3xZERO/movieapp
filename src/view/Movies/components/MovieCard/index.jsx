@@ -72,7 +72,7 @@ const MovieCard = (props) => {
         <Typography variant="body2">
           <strong>Actors:</strong> {actors.join(', ')}
         </Typography>
-        <Typography variant="body2">{overview}</Typography>
+        <Typography variant="body2" className="movie-overview">{overview}</Typography>
         <Typography variant="body2" className="rating-and-trailer">
 
         </Typography>

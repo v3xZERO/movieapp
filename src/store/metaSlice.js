@@ -5,9 +5,14 @@ const metaSlice = createSlice({
   name: 'meta',
   initialState: {
     languages: [],
+    selectedLanguage: 'en',
     isLoadingLanguages: false,
   },
-  reducers: {},
+  reducers: {
+    setLanguage: (state, action) => {
+      state.selectedLanguage = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
 		.addCase(loadLanguages.pending, (state) => {
@@ -31,4 +36,5 @@ export const loadLanguages = createAsyncThunk(
 	}
 );
 
+export const { setLanguage } = metaSlice.actions;
 export default metaSlice.reducer;

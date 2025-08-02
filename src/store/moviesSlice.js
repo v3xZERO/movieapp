@@ -5,7 +5,7 @@ import {
 	fetchMovieVideos,
 	searchMovie,
 } from "../api";
-import { selectMovieIds, selectSelectedTitlesList } from "./selectors";
+import { selectMovieIds, selectSelectedLanguage, selectSelectedTitlesList } from "./selectors";
 
 const moviesSlice = createSlice({
 	name: 'movies',
@@ -59,10 +59,11 @@ export const fetchCheckedTitles = createAsyncThunk(
 		try {
 			const state = thunkAPI.getState();
 			const titles = selectSelectedTitlesList(state);
+			const language = selectSelectedLanguage(state);
 
 			const resultsArray = await Promise.all(
 				titles.map(async (title) => {
-					const results = await searchMovie(title);
+					const results = await searchMovie(title, language);
 
 					return results.length > 0 ? results[0].id : null; // save only the first result
 				})
@@ -81,13 +82,14 @@ export const fetchFullMovies = createAsyncThunk(
 		try {
 			const state = thunkAPI.getState();
 			const ids = selectMovieIds(state);
+			const language = selectSelectedLanguage(state);
 
 			const movies = await Promise.all(
 				ids.map(async (id, index) => {
 					const [details, credits, videos] = await Promise.all([
-						fetchMovieDetails(id),
-						fetchMovieCredits(id),
-						fetchMovieVideos(id),
+						fetchMovieDetails(id, language),
+						fetchMovieCredits(id, language),
+						fetchMovieVideos(id, language),
 					]);
 
 					return {

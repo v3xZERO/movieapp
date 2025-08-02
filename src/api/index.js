@@ -3,9 +3,9 @@ import axios from "axios";
 const API_KEY = "0fa6e86d60cd3139cc696fe9bd163838";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export const searchMovie = async (query) => {
+export const searchMovie = async (query, language) => {
 	try {
-		const response = await axios.get(`${BASE_URL}/search/movie`, {
+		const response = await axios.get(`${BASE_URL}/search/movie?language=${language}`, {
 			params: {
 				api_key: API_KEY,
 				query,
@@ -18,8 +18,8 @@ export const searchMovie = async (query) => {
 	}
 };
 
-export const fetchMovieDetails = async (movieId) => {
-	const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`;
+export const fetchMovieDetails = async (movieId, language) => {
+	const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=${language}`;
 
 	const response = await fetch(url);
 	if (!response.ok) {
@@ -52,8 +52,8 @@ export const fetchMovieDetails = async (movieId) => {
 	};
 }
 
-export const fetchMovieCredits = async (movieId) => {
-	const url = `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`;
+export const fetchMovieCredits = async (movieId, language) => {
+	const url = `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=${language}`;
 
 	const response = await fetch(url);
 	if (!response.ok) {
@@ -78,8 +78,8 @@ export const fetchMovieCredits = async (movieId) => {
 	};
 }
 
-export const fetchMovieVideos = async (movieId) => {
-	const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
+export const fetchMovieVideos = async (movieId, language) => {
+	const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=${language}`;
 
 	const response = await fetch(url);
 	if (!response.ok) {
