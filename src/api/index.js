@@ -113,9 +113,30 @@ export const fetchLanguages = async () => {
 }
 
 export const sendMoviesToApi = async (moviesJson) => {
-	console.log('sending movies to API...')
-	console.log(moviesJson)
+	console.log('Sending movies to API...');
+	console.log('Payload:', moviesJson); // console logging so we can se what we're about to send
 
-	// simulate success response
-	return { status: 'ok', message: 'Movies received successfully.' }
-}
+	try {
+		const response = await fetch('https://example.com/api/movies', { // sending to a nonexistent endpoint
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(moviesJson)
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to send movies. Status: ${response.status}`);
+		}
+
+		const result = await response.json();
+		console.log('API Response:', result);
+		return result;
+	} catch (error) {
+		console.error('Error sending movies:', error);
+		return {
+			status: 'error',
+			message: error.message
+		};
+	}
+};
