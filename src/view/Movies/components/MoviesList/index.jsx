@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 
 import { selectMoviesFilteredByGenre } from "../../../../store/selectors";
@@ -39,6 +40,7 @@ const MoviesList = () => {
 				sensors={sensors}
 				collisionDetection={closestCenter}
 				onDragEnd={handleDragEnd}
+				modifiers={[restrictToVerticalAxis]}
 			>
 				<SortableContext
 					items={sortedMovies.map((m) => m.id)}
