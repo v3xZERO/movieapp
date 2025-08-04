@@ -21,6 +21,7 @@ const GenreSelect = () => {
         aria-label="delete"
         size="small"
         onClick={() => dispatch(clearGenre())}
+        disableRipple
     >
       <ClearIcon fontSize="small" />
     </IconButton>

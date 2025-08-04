@@ -78,7 +78,6 @@ const MovieCard = (props) => {
         {...listeners}
         aria-label="drag"
         size="small"
-        disableFocusRipple
         disableRipple
       >
         <DragIndicatorIcon fontSize="small" />
@@ -88,7 +87,6 @@ const MovieCard = (props) => {
   return (
     <div ref={setNodeRef} style={style}>
       <Card key={id} className="movie-card">
-        {!selectedGenre.length && draggingIcon()}
         <CardMedia
           component="img"
           className="movie-poster"
@@ -117,6 +115,7 @@ const MovieCard = (props) => {
 
           </Typography>
         </CardContent>
+        {!selectedGenre.length && draggingIcon()}
       </Card>
     </div>
   );
