@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
-import { selectMoviesList } from "../../../store/selectors";
-import MovieCard from "../components/MovieCard";
+import { selectMoviesList } from "../../../../store/selectors";
+import MovieCard from "../MovieCard";
 
 import './styles.css'
 

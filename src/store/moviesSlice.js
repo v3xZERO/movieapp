@@ -4,8 +4,9 @@ import {
 	fetchMovieDetails,
 	fetchMovieVideos,
 	searchMovie,
+	sendMoviesToApi,
 } from "../api";
-import { selectMovieIds, selectSelectedLanguage, selectSelectedTitlesList } from "./selectors";
+import { selectMovieIds, selectMoviesList, selectSelectedLanguage, selectSelectedTitlesList } from "./selectors";
 
 const moviesSlice = createSlice({
 	name: 'movies',
@@ -124,6 +125,20 @@ export const fetchAllMoviesData = createAsyncThunk(
 		}
 	}
 );
+
+
+export const exportMovies = createAsyncThunk(
+	'movies/exportMovies',
+	async (_, thunkAPI) => {
+		const state = thunkAPI.getState()
+		const movies = selectMoviesList(state)
+
+		const jsonPayload = JSON.stringify(movies, null, 2)
+		const response = await sendMoviesToApi(jsonPayload)
+
+		return response
+	}
+)
 
 export const { removeMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

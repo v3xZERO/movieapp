@@ -2,8 +2,11 @@ import { Box, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { selectHasTitlesList } from "../../../../store/selectors";
 import { fetchAllMoviesData } from "../../../../store/moviesSlice";
+import LanguageSelect from "./components/LanguageSelect";
 
-const SearchButton = () => {
+import './styles.css';
+
+const TitlesMenu = () => {
 	const dispatch = useDispatch();
 
 	const hasTitlesList = useSelector(selectHasTitlesList);
@@ -13,7 +16,8 @@ const SearchButton = () => {
 	}
 
 	return (
-		<Box class="button-wrapper">
+		<Box class="titles-menu">
+			<LanguageSelect />
 			<Button
 				variant="contained"
 				disabled={!hasTitlesList}
@@ -25,4 +29,4 @@ const SearchButton = () => {
 	)
 }
 
-export default SearchButton;
+export default TitlesMenu;

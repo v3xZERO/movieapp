@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material'
-import { selectLanguages, selectSelectedLanguage } from '../../../../store/selectors'
-import { setLanguage } from '../../../../store/metaSlice'
+import { selectLanguages, selectSelectedLanguage } from '../../../../../../store/selectors'
+import { setLanguage } from '../../../../../../store/metaSlice'
 
 const LanguageSelect = () => {
 	const languages = useSelector(selectLanguages)
@@ -16,7 +16,7 @@ const LanguageSelect = () => {
 	if (!languages) return null;
 
 	return (
-		<FormControl fullWidth variant="outlined" size="small">
+		<FormControl className="language-dropdown" variant="outlined" size="small">
 			<InputLabel id="language-select-label">Language</InputLabel>
 			<Select
 				labelId="language-select-label"

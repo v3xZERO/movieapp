@@ -50,6 +50,11 @@ const MovieCard = (props) => {
     </div>
   );
 
+  const trailer = () => (
+    <>
+      <strong> | Trailer:{' '}</strong> {trailerIcon()}
+    </>
+  )
   return (
     <Card key={id} className="movie-card">
       <CardMedia
@@ -64,7 +69,7 @@ const MovieCard = (props) => {
           <strong>Release Date</strong> {release_date}
           <strong> | Runtime:</strong> {runtime}
           <strong> | Rating:</strong> {rating}
-          <strong> | Trailer:{' '}</strong> {trailerIcon()}
+          {trailer_key && trailer()}
         </Typography>
         <Typography variant="body2">
           <strong>{`Director${isSingleDirector ? '' : 's'}`}:</strong> {directors.join(', ')}

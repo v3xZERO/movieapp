@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
-import MoviesList from "./MoviesList";
-import SaveButton from "./components/SaveButton";
 import PageTitle from "../components/PageTitle";
-import { useSelector } from "react-redux";
 import { selectAreMoviesLoading } from "../../store/selectors";
+
+import MoviesList from "./components/MoviesList";
+import MoviesMenu from "./components/MoviesMenu";
 
 const Movies = () => {
 	const isLoading = useSelector(selectAreMoviesLoading);
@@ -13,7 +14,7 @@ const Movies = () => {
 		<Box class="page-wrapper">
 			<PageTitle title="Movies to Save" />
 			{isLoading ? 'Loading... ' : <MoviesList />}
-			<SaveButton />
+			<MoviesMenu />
 		</Box>
 	);
 }

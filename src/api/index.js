@@ -31,7 +31,6 @@ export const fetchMovieDetails = async (movieId, language) => {
 		id,
 		title,
 		overview,
-		backdrop_path,
 		poster_path,
 		genres,
 		release_date,
@@ -43,7 +42,6 @@ export const fetchMovieDetails = async (movieId, language) => {
 		id,
 		title,
 		overview,
-		backdrop_path,
 		poster_path,
 		genres,
 		release_date,
@@ -110,4 +108,12 @@ export const fetchLanguages = async () => {
 	const sortedLanguages = [...languages].sort((a, b) => (a.iso.localeCompare(b.iso)));
 
 	return sortedLanguages;
+}
+
+export const sendMoviesToApi = async (moviesJson) => {
+	console.log('📤 Pretending to send movies to API...')
+	console.log(moviesJson)
+
+	// simulate success response
+	return { status: 'ok', message: 'Movies received successfully.' }
 }
