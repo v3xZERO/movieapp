@@ -5,14 +5,16 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableMovieCard from "../SortableMovieCard";
 
-import { selectMoviesList } from "../../../../store/selectors";
+import { selectMoviesFilteredByGenre } from "../../../../store/selectors";
 
 import './styles.css'
 import { reorderMovies } from "../../../../store/moviesSlice";
 
 const MoviesList = () => {
 	const dispatch = useDispatch()
-	const movies = useSelector(selectMoviesList)
+	const movies = useSelector(selectMoviesFilteredByGenre)
+
+	console.log(movies);
 
 	// Sort the array by current order field before rendering
 	const sortedMovies = [...movies].sort((a, b) => a.order - b.order)

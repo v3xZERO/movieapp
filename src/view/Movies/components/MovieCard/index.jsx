@@ -14,6 +14,7 @@ const MovieCard = (props) => {
     id,
     poster_path,
     title,
+    genres,
     release_date,
     runtime,
     rating,
@@ -52,7 +53,7 @@ const MovieCard = (props) => {
 
   const trailer = () => (
     <>
-      <strong> | Trailer:{' '}</strong> {trailerIcon()}
+      <b> | Trailer:{' '}</b> {trailerIcon()}
     </>
   )
   return (
@@ -66,16 +67,19 @@ const MovieCard = (props) => {
       <CardContent className="movie-content">
         {titleRow()}
         <Typography variant="body2" className="movie-details">
-          <strong>Release Date</strong> {release_date}
-          <strong> | Runtime:</strong> {runtime}
-          <strong> | Rating:</strong> {rating}
+          <b>Release Date</b> {release_date}
+          <b> | Runtime:</b> {runtime}
+          <b> | Rating:</b> {rating}
           {trailer_key && trailer()}
         </Typography>
         <Typography variant="body2">
-          <strong>{`Director${isSingleDirector ? '' : 's'}`}:</strong> {directors.join(', ')}
+          <b>Genres:</b> {genres.join(', ')}
         </Typography>
         <Typography variant="body2">
-          <strong>Actors:</strong> {actors.join(', ')}
+          <b>{`Director${isSingleDirector ? '' : 's'}`}:</b> {directors.join(', ')}
+        </Typography>
+        <Typography variant="body2">
+          <b>Actors:</b> {actors.join(', ')}
         </Typography>
         <Typography variant="body2" className="movie-overview">{overview}</Typography>
         <Typography variant="body2" className="rating-and-trailer">

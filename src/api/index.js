@@ -38,12 +38,14 @@ export const fetchMovieDetails = async (movieId, language) => {
 		vote_average,
 	} = data;
 
+	const parsedGenres = genres.map((g) => g.name);
+
 	return {
 		id,
 		title,
 		overview,
 		poster_path,
-		genres,
+		genres: parsedGenres,
 		release_date,
 		runtime,
 		rating: vote_average,
@@ -111,7 +113,7 @@ export const fetchLanguages = async () => {
 }
 
 export const sendMoviesToApi = async (moviesJson) => {
-	console.log('📤 Pretending to send movies to API...')
+	console.log('sending movies to API...')
 	console.log(moviesJson)
 
 	// simulate success response

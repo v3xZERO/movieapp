@@ -13,6 +13,8 @@ const moviesSlice = createSlice({
 	initialState: {
 		ids: [],
 		list: [],
+		genres: [],
+		selectedGenre: '',
 		isLoading: false,
 		error: null,
 	},
@@ -24,9 +26,15 @@ const moviesSlice = createSlice({
 			state.list = state.list.filter((m) => m.id !== id).map((f, id) => ({...f, order: id}))
 		},
 		reorderMovies: (state, action) => {
-		const newOrder = action.payload
-		state.list = newOrder;
-	}
+			const newOrder = action.payload
+			state.list = newOrder;
+		},
+		setGenre: (state, action) => {
+			state.selectedGenre = action.payload;
+		},
+		clearGenre: (state, _) => {
+			state.selectedGenre = '';
+		}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -50,6 +58,11 @@ const moviesSlice = createSlice({
 				state.isLoading = false;
 				state.error = null;
 				state.list = action.payload;
+
+				const allGenres = action.payload.flatMap((m) => m.genres);
+				const uniqueGenres = [...new Set(allGenres)];
+
+				state.genres = uniqueGenres;
 			})
 			.addCase(fetchFullMovies.rejected, (state, action) => {
 				state.isLoading = false;
@@ -130,7 +143,6 @@ export const fetchAllMoviesData = createAsyncThunk(
 	}
 );
 
-
 export const exportMovies = createAsyncThunk(
 	'movies/exportMovies',
 	async (_, thunkAPI) => {
@@ -144,5 +156,5 @@ export const exportMovies = createAsyncThunk(
 	}
 )
 
-export const { removeMovie, reorderMovies } = moviesSlice.actions;
+export const { removeMovie, reorderMovies, setGenre, clearGenre } = moviesSlice.actions;
 export default moviesSlice.reducer;

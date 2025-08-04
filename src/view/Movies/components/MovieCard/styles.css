@@ -1,7 +1,7 @@
 
 .movie-card {
   display: flex;
-  height: 200px;
+  height: 250px;
   flex-shrink: 0;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .movie-poster {
-  width: 133px !important;
+  width: unset !important;
   object-fit: contain !important;
 }
 

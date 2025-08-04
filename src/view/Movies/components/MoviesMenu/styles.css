@@ -1,0 +1,14 @@
+.movies-menu {
+  display: flex;
+	width: 100%;
+	align-items: center;
+  justify-content: space-between;
+}
+
+.genre-wrapper {
+  display: flex;
+}
+
+.genre-dropdown {
+  min-width: 200px !important;
+}

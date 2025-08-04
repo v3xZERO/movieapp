@@ -12,5 +12,17 @@ export const selectMoviesList = (state) => state.movies.list;
 export const selectAreMoviesLoading = (state) => state.movies.isLoading;
 export const selectHasMoviesList = (state) => state.movies.ids.length;
 
+export const selectGenres = (state) => state.movies.genres;
+export const selectSelectedGenre = (state) => state.movies.selectedGenre;
+export const selectMoviesFilteredByGenre = (state) => {
+	const selectedGenre = state.movies.selectedGenre;
+
+	if (selectedGenre.length === 0) return state.movies.list;
+
+	const filteredMovies = state.movies.list.filter((m) => m.genres.includes(selectedGenre));
+
+	return filteredMovies;
+}
+
 export const selectLanguages = (state) => state.meta.languages;
 export const selectSelectedLanguage = (state) => state.meta.selectedLanguage;

@@ -19,7 +19,7 @@ const TitlesList = () => {
 	if (!titles.length) return null;
 
 	return (
-		<Box class="content-wrapper">
+		<Box class="titles-content content-wrapper">
 			<List class="titles-list">
 				{titles.map((title, index) => (
 					<ListItem

@@ -1,7 +1,10 @@
 import { useDispatch } from "react-redux";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 import { exportMovies } from "../../../../store/moviesSlice";
+import GenreSelect from "./components/GenreSelect";
+
+import './styles.css';
 
 const MoviesMenu = () => {
 	const dispatch = useDispatch();
@@ -11,12 +14,15 @@ const MoviesMenu = () => {
 	}
 
 	return (
+		<Box class="movies-menu">
+			<GenreSelect />
 			<Button
 				variant="contained"
 				onClick={handleSave}
 			>
 				Save
 			</Button>
+		</Box>
 	);
 };
 

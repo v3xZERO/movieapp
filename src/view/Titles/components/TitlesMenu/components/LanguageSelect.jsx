@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material'
-import { selectLanguages, selectSelectedLanguage } from '../../../../../../store/selectors'
-import { setLanguage } from '../../../../../../store/metaSlice'
+import { selectLanguages, selectSelectedLanguage } from '../../../../../store/selectors'
+import { setLanguage } from '../../../../../store/metaSlice'
 
 const LanguageSelect = () => {
 	const languages = useSelector(selectLanguages)

@@ -1,7 +1,9 @@
-import { Box, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Button } from "@mui/material";
+
 import { selectHasTitlesList } from "../../../../store/selectors";
 import { fetchAllMoviesData } from "../../../../store/moviesSlice";
+
 import LanguageSelect from "./components/LanguageSelect";
 
 import './styles.css';
