@@ -3,18 +3,18 @@ import { Box } from "@mui/material";
 
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import SortableMovieCard from "../SortableMovieCard";
+
 
 import { selectMoviesFilteredByGenre } from "../../../../store/selectors";
+import { reorderMovies } from "../../../../store/moviesSlice";
+
+import MovieCard from "../MovieCard";
 
 import './styles.css'
-import { reorderMovies } from "../../../../store/moviesSlice";
 
 const MoviesList = () => {
 	const dispatch = useDispatch()
 	const movies = useSelector(selectMoviesFilteredByGenre)
-
-	console.log(movies);
 
 	// Sort the array by current order field before rendering
 	const sortedMovies = [...movies].sort((a, b) => a.order - b.order)
@@ -46,7 +46,7 @@ const MoviesList = () => {
 				>
 					<Box className="movies-list">
 						{sortedMovies.map((movie) => (
-							<SortableMovieCard key={movie.id} movie={movie} />
+							<MovieCard key={movie.id} movie={movie} />
 						))}
 					</Box>
 				</SortableContext>

@@ -1,13 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
 
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
+
+import { CSS } from '@dnd-kit/utilities'
 
 import { removeMovie } from "../../../../store/moviesSlice";
 
 import './styles.css';
+import { useSortable } from "@dnd-kit/sortable";
+import { selectSelectedGenre } from "../../../../store/selectors";
 
 const MovieCard = (props) => {
   const {
@@ -23,6 +28,15 @@ const MovieCard = (props) => {
     actors,
     directors
   } = props.movie;
+
+  const selectedGenre = useSelector(selectSelectedGenre);
+
+  const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef } = useSortable({ id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
 
   const dispatch = useDispatch();
   const isSingleDirector = directors.length === 1;
@@ -56,37 +70,55 @@ const MovieCard = (props) => {
       <b> | Trailer:{' '}</b> {trailerIcon()}
     </>
   )
-  return (
-    <Card key={id} className="movie-card">
-      <CardMedia
-        component="img"
-        className="movie-poster"
-        image={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={title}
-      />
-      <CardContent className="movie-content">
-        {titleRow()}
-        <Typography variant="body2" className="movie-details">
-          <b>Release Date</b> {release_date}
-          <b> | Runtime:</b> {runtime}
-          <b> | Rating:</b> {rating}
-          {trailer_key && trailer()}
-        </Typography>
-        <Typography variant="body2">
-          <b>Genres:</b> {genres.join(', ')}
-        </Typography>
-        <Typography variant="body2">
-          <b>{`Director${isSingleDirector ? '' : 's'}`}:</b> {directors.join(', ')}
-        </Typography>
-        <Typography variant="body2">
-          <b>Actors:</b> {actors.join(', ')}
-        </Typography>
-        <Typography variant="body2" className="movie-overview">{overview}</Typography>
-        <Typography variant="body2" className="rating-and-trailer">
 
-        </Typography>
-      </CardContent>
-    </Card>
+  const draggingIcon = () => (
+    <IconButton
+        ref={setActivatorNodeRef}
+        {...attributes}
+        {...listeners}
+        aria-label="drag"
+        size="small"
+        disableFocusRipple
+        disableRipple
+      >
+        <DragIndicatorIcon fontSize="small" />
+    </IconButton>
+  );
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      <Card key={id} className="movie-card">
+        {!selectedGenre.length && draggingIcon()}
+        <CardMedia
+          component="img"
+          className="movie-poster"
+          image={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt={title}
+        />
+        <CardContent className="movie-content">
+          {titleRow()}
+          <Typography variant="body2" className="movie-details">
+            <b>Release Date</b> {release_date}
+            <b> | Runtime:</b> {runtime}
+            <b> | Rating:</b> {rating}
+            {trailer_key && trailer()}
+          </Typography>
+          <Typography variant="body2">
+            <b>Genres:</b> {genres.join(', ')}
+          </Typography>
+          <Typography variant="body2">
+            <b>{`Director${isSingleDirector ? '' : 's'}`}:</b> {directors.join(', ')}
+          </Typography>
+          <Typography variant="body2">
+            <b>Actors:</b> {actors.join(', ')}
+          </Typography>
+          <Typography variant="body2" className="movie-overview">{overview}</Typography>
+          <Typography variant="body2" className="rating-and-trailer">
+
+          </Typography>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
