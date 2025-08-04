@@ -29,6 +29,12 @@ const moviesSlice = createSlice({
 			state.ids = state.ids.filter(i => i !== id);
 			state.list = state.list.filter((m) => m.id !== id).map((f, id) => ({...f, order: id}))
 		},
+		updateMovie: (state, action) => {
+			const index = state.list.findIndex(m => m.id === action.payload.id);
+			if (index !== -1) {
+				state.list[index] = action.payload;
+			}
+		},
 		reorderMovies: (state, action) => {
 			const newOrder = action.payload
 			state.list = newOrder;
@@ -206,5 +212,5 @@ export const fetchFullMovieById = createAsyncThunk(
 	}
 )
 
-export const { removeMovie, reorderMovies, setGenre, clearGenre, setSearchQuery, clearSearchQuery } = moviesSlice.actions;
+export const { removeMovie, reorderMovies, setGenre, clearGenre, setSearchQuery, clearSearchQuery, updateMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

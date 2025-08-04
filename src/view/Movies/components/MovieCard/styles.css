@@ -11,6 +11,10 @@
   justify-content: space-between;
 }
 
+.movie-card-buttons {
+  display: flex;
+  flex-direction: row;
+}
 .movie-poster {
   width: unset !important;
   object-fit: contain !important;

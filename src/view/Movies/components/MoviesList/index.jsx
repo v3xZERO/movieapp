@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Box } from "@mui/material";
 
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
@@ -7,16 +9,18 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 
 import { selectMoviesFilteredByGenre } from "../../../../store/selectors";
-import { reorderMovies } from "../../../../store/moviesSlice";
+import { reorderMovies, updateMovie } from "../../../../store/moviesSlice";
 
 import MovieCard from "../MovieCard";
 import MovieSearch from "../MovieSearch";
+import EditMovieModal from "../EditMovieModal";
 
 import './styles.css'
 
 const MoviesList = () => {
 	const dispatch = useDispatch()
 	const movies = useSelector(selectMoviesFilteredByGenre)
+	const [selectedMovie, setSelectedMovie] = useState(null);
 
 	// Sort the array by current order field before rendering
 	const sortedMovies = [...movies].sort((a, b) => a.order - b.order)
@@ -35,6 +39,14 @@ const MoviesList = () => {
 		dispatch(reorderMovies(newOrder));
 	}
 
+	 const handleEdit = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const handleSave = (updatedMovie) => {
+    dispatch(updateMovie(updatedMovie));
+  };
+
 	return (
 		<Box className="content-wrapper">
 			<MovieSearch />
@@ -50,11 +62,17 @@ const MoviesList = () => {
 				>
 					<Box className="movies-list">
 						{sortedMovies.map((movie) => (
-							<MovieCard key={movie.id} movie={movie} />
+							<MovieCard key={movie.id} movie={movie} onEdit={handleEdit}/>
 						))}
 					</Box>
 				</SortableContext>
 			</DndContext>
+			<EditMovieModal
+        open={!!selectedMovie}
+        movie={selectedMovie}
+        onClose={() => setSelectedMovie(null)}
+        onSave={handleSave}
+      />
 		</Box>
 	)
 }

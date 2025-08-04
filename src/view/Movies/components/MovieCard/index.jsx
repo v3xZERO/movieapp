@@ -2,19 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
 
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
+
+import { useSortable } from "@dnd-kit/sortable";
 
 import { CSS } from '@dnd-kit/utilities'
 
 import { removeMovie } from "../../../../store/moviesSlice";
-
-import './styles.css';
-import { useSortable } from "@dnd-kit/sortable";
 import { selectSelectedGenre } from "../../../../store/selectors";
 
-const MovieCard = (props) => {
+import './styles.css';
+
+const MovieCard = ({ movie, onEdit }) => {
   const {
     id,
     poster_path,
@@ -27,7 +29,11 @@ const MovieCard = (props) => {
     overview,
     actors,
     directors
-  } = props.movie;
+  } = movie;
+
+  const handleEditClick = () => {
+    if (onEdit) onEdit(movie);
+  };
 
   const selectedGenre = useSelector(selectSelectedGenre);
 
@@ -55,13 +61,20 @@ const MovieCard = (props) => {
   const titleRow = () => (
     <div className="movie-title-row">
       <Typography variant="h6">{title}</Typography>
-      <IconButton
-        aria-label="delete"
-        size="small"
-        onClick={() => dispatch(removeMovie(id))}
-      >
-        <DeleteIcon fontSize="small" />
-      </IconButton>
+      <div className="movie-card-buttons">
+        <IconButton
+          size="small"
+          onClick={handleEditClick}
+        >
+          <EditIcon fontSize="small" />
+        </IconButton>
+        <IconButton
+          size="small"
+          onClick={() => dispatch(removeMovie(id))}
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </div>
     </div>
   );
 
