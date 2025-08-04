@@ -87,6 +87,7 @@ const moviesSlice = createSlice({
 			})
 			.addCase(fetchFullMovieById.fulfilled, (state, action) => {
 				const movie = action.payload
+				state.genres = [...new Set([...state.genres, ...movie.genres])];
 				state.list.push({ ...movie, order: state.list.length })
 			})
 	}
