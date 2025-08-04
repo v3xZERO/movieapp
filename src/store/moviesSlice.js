@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import {
 	fetchMovieCredits,
 	fetchMovieDetails,
@@ -6,6 +7,7 @@ import {
 	searchMovie,
 	sendMoviesToApi,
 } from "../api";
+
 import { selectMovieIds, selectMoviesList, selectSelectedLanguage, selectSelectedTitlesList } from "./selectors";
 
 const moviesSlice = createSlice({
@@ -13,7 +15,9 @@ const moviesSlice = createSlice({
 	initialState: {
 		ids: [],
 		list: [],
+		searchResults: [],
 		genres: [],
+		searchQuery: '',
 		selectedGenre: '',
 		isLoading: false,
 		error: null,
@@ -34,6 +38,16 @@ const moviesSlice = createSlice({
 		},
 		clearGenre: (state, _) => {
 			state.selectedGenre = '';
+		},
+		clearSearchResults: (state) => {
+			state.searchResults = [];
+		},
+		setSearchQuery: (state, action) => {
+			state.searchQuery = action.payload;
+		},
+		clearSearchQuery: (state, _) => {
+			state.searchQuery = '';
+			state.searchResults = [];
 		}
 	},
 	extraReducers: (builder) => {
@@ -67,7 +81,14 @@ const moviesSlice = createSlice({
 			.addCase(fetchFullMovies.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.payload || 'Failed to fetch full movies data';
-			});
+			})
+			.addCase(searchMoviesThunk.fulfilled, (state, action) => {
+				state.searchResults = action.payload
+			})
+			.addCase(fetchFullMovieById.fulfilled, (state, action) => {
+				const movie = action.payload
+				state.list.push({ ...movie, order: state.list.length })
+			})
 	}
 });
 
@@ -156,5 +177,33 @@ export const exportMovies = createAsyncThunk(
 	}
 )
 
-export const { removeMovie, reorderMovies, setGenre, clearGenre } = moviesSlice.actions;
+export const searchMoviesThunk = createAsyncThunk(
+	'movies/searchMovies',
+	async (query, { getState }) => {
+		const existingIds = getState().movies.list.map((m) => m.id)
+		const results = await searchMovie(query)
+		return results.filter((movie) => !existingIds.includes(movie.id)).map((m) => ({ id: m.id, title: m.title, release_date: m.release_date }))
+	}
+)
+
+
+export const fetchFullMovieById = createAsyncThunk(
+	'movies/fetchFullMovieById',
+	async (id, { getState }) => {
+		const lang = getState().meta.selectedLanguage;
+
+		const details = await fetchMovieDetails(id, lang)
+		const credits = await fetchMovieCredits(id, lang)
+		const videos = await fetchMovieVideos(id, lang)
+
+		return {
+			...details,
+			actors: credits.actors,
+			directors: credits.directors,
+			trailer_key: videos,
+		}
+	}
+)
+
+export const { removeMovie, reorderMovies, setGenre, clearGenre, setSearchQuery, clearSearchQuery } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -10,6 +10,7 @@ import { selectMoviesFilteredByGenre } from "../../../../store/selectors";
 import { reorderMovies } from "../../../../store/moviesSlice";
 
 import MovieCard from "../MovieCard";
+import MovieSearch from "../MovieSearch";
 
 import './styles.css'
 
@@ -36,6 +37,7 @@ const MoviesList = () => {
 
 	return (
 		<Box className="content-wrapper">
+			<MovieSearch />
 			<DndContext
 				sensors={sensors}
 				collisionDetection={closestCenter}

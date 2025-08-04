@@ -24,5 +24,8 @@ export const selectMoviesFilteredByGenre = (state) => {
 	return filteredMovies;
 }
 
+export const selectSearchQuery = (state) => state.movies.searchQuery;
+export const selectSearchResults = (state) => state.movies.searchResults;
+
 export const selectLanguages = (state) => state.meta.languages;
 export const selectSelectedLanguage = (state) => state.meta.selectedLanguage;
