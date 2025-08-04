@@ -22,7 +22,11 @@ const moviesSlice = createSlice({
 			
 			state.ids = state.ids.filter(i => i !== id);
 			state.list = state.list.filter((m) => m.id !== id).map((f, id) => ({...f, order: id}))
-		}
+		},
+		reorderMovies: (state, action) => {
+		const newOrder = action.payload
+		state.list = newOrder;
+	}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -140,5 +144,5 @@ export const exportMovies = createAsyncThunk(
 	}
 )
 
-export const { removeMovie } = moviesSlice.actions;
+export const { removeMovie, reorderMovies } = moviesSlice.actions;
 export default moviesSlice.reducer;

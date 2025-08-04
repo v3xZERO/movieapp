@@ -14,7 +14,7 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(loadLanguages());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="app-wrapper">
